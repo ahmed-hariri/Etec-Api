@@ -17,7 +17,7 @@ import { purchesedRoutes } from './routes/purchesed';
 const app: express.Application = express();
 /*---> Middlewares <---*/
 app.use(cors({
-    origin: "https://etec-dashboard.vercel.app",
+    origin: process.env.STORE_CORS,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ['Content-Type'],
     credentials: true
