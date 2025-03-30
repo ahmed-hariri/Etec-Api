@@ -78,3 +78,23 @@ export const updateClientInformationRepository: functionRepository<accountTypes>
         return { data: null, message: "Error client information!" };
     }
 };
+
+/*---> Remove client repository <---*/
+export const removeClientRepository: functionRepository<accountTypes> = async (clientId) => {
+    const { id } = clientId as accountTypes;
+    try {
+        const findUser = await accountModel.findByIdAndDelete(id);
+        if (!findUser) {
+            return { data: null, message: "Client not found" };
+        }
+        const findOrder = await orderModel.deleteMany({ userId: id });
+        const findPurchesedProduct = await purchesedModel.deleteMany({ userId: id });
+        if (!findOrder || !findPurchesedProduct) {
+            return { data: null, message: "Error removing client orders or purchased products" };
+        }
+        return { data: findUser._id, message: "Client removed successfully!" };
+    } catch (error) {
+        console.error("Error remove client:", error);
+        return { data: null, message: "Error remove client!" }
+    }
+}
