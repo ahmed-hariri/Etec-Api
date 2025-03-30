@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet())
 app.use(cors({
-    origin: "*",
+    origin: ["http://localhost:3000", "https://etec-dashboard.vercel.app"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ['Content-Type'],
     credentials: true
