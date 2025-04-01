@@ -1,6 +1,6 @@
-import { clientInformationRepository, clientSubscribeRepository, removeClientRepository, updateClientInformationRepository } from '../../repositories/clients/index';
+import { clientInformationRepository, clientSubscribeRepository, removeClientRepository, updateClientInformationRepository } from '../../repositories/users/index';
 import { accountTypes, functionControllers } from "../../dto";
-import { getClientRepository } from "../../repositories/clients";
+import { getClientRepository } from "../../repositories/users";
 
 /*---> Get all clients controller <---*/
 export const getClientsController: functionControllers = async (req, res, next) => {
@@ -56,7 +56,7 @@ export const updateClientInformation: functionControllers = async (req, res, nex
     const { id } = req.params;
     const { fullName, email, password, profile } = req.body
     if (!id) {
-        return res.status(400).type("json").json({ message: `You dont have : ${!id ? "clientId" : ""}` });
+        return res.status(400).type("json").json({ message: `You dont have : ${id ? "clientId" : ""}` });
     }
     try {
         const client: Partial<accountTypes> = { id, fullName, email, password, profile }

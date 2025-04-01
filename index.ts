@@ -16,8 +16,9 @@ import { purchesedRoutes } from './routes/purchesed';
 
 const app: express.Application = express();
 /*---> Middlewares <---*/
+dotenv.config();
 app.use(cors({
-    origin: process.env.STORE_CORS,
+    origin: `${process.env.STORE_URL}`,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ['Content-Type'],
     credentials: true
@@ -26,7 +27,6 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet())
 app.use(cookieParser());
-dotenv.config();
 
 /*---> Mounting the authentication routes on the "/auth" path <---*/
 app.use("/auth", authRoutes);
